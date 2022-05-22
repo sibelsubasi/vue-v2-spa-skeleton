@@ -113,12 +113,12 @@ export default {
   data: () => ({}),
   methods: {
     routerPush(name) {
-      var saklaNo = localStorage.getItem("saklaNo") ?? null;
+      var id = localStorage.getItem("id") ?? null;
 
-      if(saklaNo == null || saklaNo == undefined) return;
+      if(id == null || id == undefined) return;
       router.push({
         name: name,
-        params: { params: saklaNo },
+        params: { id: id },
       })
       .catch(()=>{
         console.log(name);
