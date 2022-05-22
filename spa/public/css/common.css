@@ -1,0 +1,23 @@
+
+body{
+    font-family: "Roboto", sans-serif !important;
+    font-size: 16px !important;
+}
+
+.v-application {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 16px !important;
+}
+
+.dummyRule {
+    color: #333;
+}
+.v-alert--denser {
+    padding-top: 1px !important;
+    padding-bottom: 2px !important;
+    font-size: 11px !important;
+}
+
+.theme--light.v-label {
+    color: inherit !important;
+}

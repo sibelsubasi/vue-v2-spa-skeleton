@@ -1,0 +1,29 @@
+.DS_Store
+spa/node_modules
+spa/dist
+spabs/node_modules
+spabs/dist
+api/vendor
+api/composer.lock
+
+# local env files
+spa/.env.local
+spa/.env.*.local
+
+# Log files
+spa/npm-debug.log*
+spa/yarn-debug.log*
+spa/yarn-error.log*
+spa/package-lock.json
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+*.lock
+/nbproject/private/
+/api/nbproject/private/
