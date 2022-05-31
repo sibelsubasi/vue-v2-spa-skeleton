@@ -197,6 +197,7 @@ export default {
             step6: "Step 6",
         },
         home: {
+            basvuruTarihi: "Başvuru Tarihi",
             unvani: "Unvanı",
             adi: "Adı",
             soyadi:"Soyadı",

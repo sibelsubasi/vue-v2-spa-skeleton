@@ -27,6 +27,81 @@
             <div>
               <v-row justify="center">
                 <v-col cols="12" align="center" class="py-0">
+                  <!-- 
+                  <v-text-field
+                    v-model="models.basvuruTarihi"
+                    :label="$t(`pages.home.basvuruTarihi`)"
+                    :rules="
+                      validation()
+                        .required()
+                        .date('DD-MM-YYYY')
+                        .toRules($t(`pages.home.basvuruTarihi`))
+                    "
+                    v-mask="'##-##-####'"
+                    hint="gg-aa-yyyy"
+                    validate-on-blur
+                    :append-icon="'mdi-calendar-text'"
+                    clearable
+                    persistent-hint
+                    outlined
+                    dense
+                    style="min-width: 304px; max-width: 304px;"
+                  ></v-text-field>
+                  -->
+                  <v-menu
+                    ref="basvuruTarihi"
+                    v-model="basvuruTarihi"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    max-width="290px"
+                    offset-y
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-on="on"
+                        v-bind="attrs"
+                        v-model="models.basvuruTarihi"
+                        :label="$t(`pages.home.basvuruTarihi`)"
+                        :rules="
+                          validation()
+                            .required()
+                            .date('DD-MM-YYYY')
+                            .toRules($t(`pages.home.basvuruTarihi`))
+                        "
+                        append-icon="mdi-calendar-text"
+                        v-mask="'##-##-####'"
+                        hint="gg-aa-yyyy"
+                        autocomplete="off"
+                        persistent-hint
+                        clearable
+                        outlined
+                        dense
+                        @blur="parsedDate = parseDate(models.basvuruTarihi)"
+                        style="min-width: 304px; max-width: 304px;"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="parsedDate"
+                      no-title
+                      scrollable
+                      @input="basvuruTarihi = false, models.basvuruTarihi = formatDate(parsedDate)"
+                      first-day-of-week="1"
+                      :weekday-format="weekdayFormat"
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="
+                          models.basvuruTarihi = '';
+                          basvuruTarihi = false;
+                        "
+                        >{{ $t("actions.clear") }}</v-btn
+                      >
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col cols="12" align="center" class="py-0">
                   <v-text-field
                     v-model="models.unvani"
                     :label="$t(`pages.home.unvani`)"
@@ -130,7 +205,7 @@
 <script>
 import store from "@/store";
 import router from "@/router";
-//import moment from "moment";
+import moment from "moment";
 
 const GLOBAL_VALUE = 11;
 const ANOTHER_GLOBAL_VALUE = 22;
@@ -172,6 +247,8 @@ export default {
       { text: "Test 1", value: 1 },
       { text: "Test 2", value: 2 },
     ],
+    basvuruTarihi: null, //datePicker
+    parsedDate: null, //datePicker
   }),
   watch: {},
   computed: {
@@ -180,6 +257,25 @@ export default {
     }
   },
   methods: {
+    weekdayFormat(d) {
+      var daysOfWeek = this.$t("datePicker.daysOfWeek");
+      let i = new Date(d).getDay(d);
+      return daysOfWeek[i];
+    },
+    parseDate(date) {
+      if (!date) return null;
+      const [day, month, year] = date.split('-');
+      let parsedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      let ret = moment(`${parsedDate}`, "YYYY-MM-DD", true).isValid() ? parsedDate : null;
+      return ret;
+    },
+    formatDate(date) {
+      if (!date) return null;
+      const [year, month, day] = date.split('-');
+      let formattedDate = `${day}-${month}-${year}`;
+      let ret = moment(`${formattedDate}`, "DD-MM-YYYY", true).isValid() ? formattedDate : null;
+      return ret;
+    },
 
     click(){
 

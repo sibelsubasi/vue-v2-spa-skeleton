@@ -197,6 +197,7 @@ export default {
             step6: "Step 6",
         },
         home: {
+            basvuruTarihi: "Application Date",
             unvani: "Company Name",
             adi: "Name",
             soyadi: "Surname",
